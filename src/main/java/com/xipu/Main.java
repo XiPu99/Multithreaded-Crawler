@@ -2,7 +2,7 @@ package com.xipu;
 
 public class Main {
     public static void main(String[] args) {
-        CrawlerDao dao = new JdbcDao();
+        CrawlerDao dao = new MybatisDao();
         new Crawler(dao).run();
     }
 }
