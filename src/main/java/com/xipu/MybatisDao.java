@@ -27,7 +27,7 @@ public class MybatisDao implements CrawlerDao {
     }
 
     @Override
-    public String getNextLinkThenDelete() {
+    public synchronized String getNextLinkThenDelete() {
         try (SqlSession session = sqlSessionFactory.openSession(true)) {
             String link = session.selectOne("com.xipu.MyMapper.selectNextLink");
             if (link != null) {
