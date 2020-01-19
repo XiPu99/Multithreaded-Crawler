@@ -5,18 +5,25 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import java.io.File;
 import java.io.IOException;
+import java.sql.*;
 import java.util.*;
 
 public class Crawler {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, SQLException {
         Queue<String> linkPool = new LinkedList<>();
         Set<String> processedLinks = new HashSet<>();
         linkPool.offer("https://sina.cn/");
 
         String linkToBeProcessed;
 
-        while ((linkToBeProcessed = linkPool.remove()) != null) {
+        File projectDir = new File(System.getProperty("basedir", System.getProperty("user.dir")));
+        String jdbcUrl = "jdbc:h2:file:" + projectDir.getAbsolutePath() + "/news";
+        Connection connection = DriverManager.getConnection(jdbcUrl);
+
+
+        while ((linkToBeProcessed = getNextLinkToProcessFromDatabase(connection)) != null) {
             if (processedLinks.contains(linkToBeProcessed)) {
                 continue;
             }
@@ -28,6 +35,19 @@ public class Crawler {
                 processedLinks.add(linkToBeProcessed);
             }
         }
+    }
+
+
+    private static String getNextLinkToProcessFromDatabase(Connection connection) {
+        try (PreparedStatement statement = connection.prepareStatement("SELECT LINK FROM LINKS_TO_BE_PROCESSED LIMIT 1")) {
+            ResultSet resultSet = statement.executeQuery();
+            if(resultSet.next()){
+                return resultSet.getString(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     private static void processNewsLink(Document doc) {
