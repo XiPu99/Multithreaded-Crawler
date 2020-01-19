@@ -26,7 +26,7 @@ public class Crawler {
                 if (crawlerDao.isLinkAlreadyProcessed(linkToBeProcessed)) {
                     continue;
                 }
-//                System.out.println(linkToBeProcessed);
+                System.out.println(linkToBeProcessed);
                 if (isNewsLink(linkToBeProcessed)) {
                     linkToBeProcessed = fixLinkIfContainsEscapeCharacter(linkToBeProcessed);
                     Document doc = Jsoup.connect(linkToBeProcessed).get();
@@ -70,7 +70,7 @@ public class Crawler {
     }
 
     private static boolean isLoginPage(String link) {
-        return link.contains("passport");
+        return link.contains("passport.sina.cn");
     }
 
     private static boolean isValidLink(String link) {
