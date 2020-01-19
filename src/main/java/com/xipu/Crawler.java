@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class Crawler {
+public class Crawler extends Thread {
 
     private CrawlerDao crawlerDao;
 
@@ -18,6 +18,7 @@ public class Crawler {
         this.crawlerDao = dao;
     }
 
+    @Override
     public void run() {
         String linkToBeProcessed;
 
