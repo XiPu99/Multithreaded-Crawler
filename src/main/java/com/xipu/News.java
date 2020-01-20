@@ -54,4 +54,10 @@ public class News {
     public void setCreatedAt(Instant createdAt) {
         this.createdAt = createdAt;
     }
+
+    public News copy(){
+        News instance = new News(link, title, content);
+        instance.setCreatedAt(createdAt);
+        return instance;
+    }
 }

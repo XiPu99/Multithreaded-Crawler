@@ -35,7 +35,7 @@ public class MockDataGenerator {
             try {
                 while (count-- > 0) {
                     int randIndex = random.nextInt(currentNews.size());
-                    News newsToBeInserted = currentNews.get(randIndex);
+                    News newsToBeInserted = currentNews.get(randIndex).copy();
                     Instant oldInstant = newsToBeInserted.getCreatedAt();
                     Instant newInstant = oldInstant.minusSeconds(random.nextInt(3600 * 24 * 365));
                     newsToBeInserted.setCreatedAt(newInstant);
