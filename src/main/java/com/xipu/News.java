@@ -1,10 +1,13 @@
 package com.xipu;
 
+import java.time.Instant;
+
 public class News {
     Integer id;
     String link;
     String title;
     String content;
+    Instant createdAt;
 
     public News(String link, String title, String content) {
         this.link = link;
@@ -42,5 +45,13 @@ public class News {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public Instant getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Instant createdAt) {
+        this.createdAt = createdAt;
     }
 }

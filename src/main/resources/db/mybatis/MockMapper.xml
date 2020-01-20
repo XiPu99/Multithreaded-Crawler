@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xipu.MockMapper">
+    <insert id="insertNews" parameterType="com.xipu.News">
+        INSERT INTO NEWS (LINK, TITLE, CONTENT, CREATED_AT)
+        VALUES (#{link}, #{title}, #{content}, #{createdAt})
+    </insert>
+
+    <select id="selectNews" resultType="com.xipu.News">
+        SELECT *
+        FROM NEWS
+    </select>
+
+</mapper>
